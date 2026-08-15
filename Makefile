@@ -24,7 +24,7 @@ DOCKER_SRC_DIR         := /workspace/Vela-Client
 DOCKER_CROSS_BUILD_DIR := $(DOCKER_SRC_DIR)/build/cross
 
 # Server (x86 Ubuntu) Docker settings - use the unified image we just built
-DOCKER_SERVER_IMAGE     := vela-dev
+DOCKER_SERVER_IMAGE     := vela-server
 DOCKER_SERVER_SRC_DIR   := /workspace/Vela-Server
 DOCKER_SERVER_BUILD_DIR := $(DOCKER_SERVER_SRC_DIR)/build/docker
 
