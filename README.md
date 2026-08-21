@@ -101,6 +101,8 @@ ctest --test-dir build --output-on-failure
 | 5 · gRPC bidi server | — |
 | … | — |
 
+## Overview
+
 ## Project Summary
 
 Vela-Server is the central C++ orchestration and data-collection backend for
