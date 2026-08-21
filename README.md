@@ -100,3 +100,52 @@ ctest --test-dir build --output-on-failure
 | 4 · Ingest queue + result writer | — |
 | 5 · gRPC bidi server | — |
 | … | — |
+
+## Project Summary
+
+Vela-Server is the central C++ orchestration and data-collection backend for
+Vela’s independent validation and verification tooling. Its CMake and Docker
+project contains configuration, database access, migration execution, gRPC
+service implementations, logging, and the application entry point. `HalService`
+and client-service components provide the embedded boundary, while the existing
+documentation describes a REST `/api/v1` surface, PostgreSQL persistence,
+versioned migrations, OTA orchestration, and optional Prometheus metrics.
+
+The repository includes Docker setup, local setup, dependency, audit, and
+server-update documentation. Source and configuration establish these feature
+surfaces, but a migration runner does not prove database reachability, a service
+class does not prove streaming success, and a compose file does not prove a
+healthy deployment. End-to-end behavior should be validated with PostgreSQL,
+protocol clients, and the intended deployment environment.
+
+The server’s source layout separates transport, persistence, configuration, and
+logging, which is a useful ownership boundary for future tests. Docker compose
+files provide a repeatable development environment, while CMake presets expose
+debug, release, test, and sanitizer builds in the existing documentation. The
+REST endpoint inventory includes health, authentication, modules, runs, logs,
+target heartbeat, and OTA operations. These documented routes should be tested
+with authorization, database failures, stream disconnects, migration replay,
+and invalid artifacts. The implementation-status notes in the original README
+also describe unfinished database and ingestion work, so source presence must
+not be read as full product completion. This status table keeps the central
+service contract visible while preserving those limitations.
+
+## Feature Status
+
+| # | Name / Description | Implemented? | Test Coverage? | Manual Test |
+|---:|---|---|---|---|
+| 1 | CMake/Make and Docker development workflows | Implemented | Build configuration present; execution not verified | [ ] Manual verification required |
+| 2 | Settings/configuration component | Implemented | Coverage depth unknown | [ ] Manual verification required |
+| 3 | PostgreSQL client and database abstraction | Implemented | Integration coverage unknown | [ ] Manual verification required |
+| 4 | Versioned migration runner | Implemented | Migration execution not verified | [ ] Manual verification required |
+| 5 | `HalService` gRPC implementation | Implemented | End-to-end stream coverage unknown | [ ] Manual verification required |
+| 6 | Client service and command streaming | Implemented | Stream/backpressure coverage unknown | [ ] Manual verification required |
+| 7 | gRPC runner and stream backpressure helper | Implemented | Runtime result not verified | [ ] Manual verification required |
+| 8 | REST `/api/v1` orchestration API | Partial | Endpoint coverage not established | [ ] Manual verification required |
+| 9 | OTA firmware upgrade orchestration | Partial | Workflow/hardware coverage unknown | [ ] Manual verification required |
+| 10 | Optional Prometheus metrics | Partial | Metrics runtime coverage unknown | [ ] Manual verification required |
+| 11 | Production Docker/PostgreSQL deployment | Unknown | Environment-dependent; not verified | [ ] Manual verification required |
+
+Start with `LOCAL_SETUP.md` and `docker/README.md`; use the root and Docker
+Makefiles. The documented CMake presets and `ctest` commands are the primary
+build/test entry points.
