@@ -24,11 +24,9 @@ Recommended: `cd docker && ./setup.sh`, then enter the `vela-dev` container.
 Alternatively copy `.env.example` to `.env`, start PostgreSQL with `docker
 compose -f docker/docker-compose.yml up postgres -d`, and use `scripts/run_dev.sh`.
 The Makefile also provides `make -C docker check`, `setup`, `up`, `shell`, and
-`logs` wrappers. On Ubuntu 22.04/24.04, `./local_install.sh` installs apt
-dependencies and, unless skipped, builds yaml-cpp, Drogon, and
-`grpc_cpp_plugin` from source; use `--skip-apt`, `--skip-postgres`, or
-`--skip-build-from-src` when those steps are already satisfied. It creates
-`.env.local`, which should be sourced before a native build.
+`logs` wrappers. The build image contains the full toolchain (yaml-cpp, Drogon,
+gRPC) — `make build` builds everything in Docker; no native host toolchain or
+`.env.local` setup is required.
 
 ## 3. Build and compile
 
